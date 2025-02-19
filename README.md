@@ -4,7 +4,7 @@
 - 💞️ I’m looking to collaborate on everything
 - 📫 How to reach me: you dont.
 - 😄 Pronouns: Je/moeder
-- ⚡ Fun fact: wist je dat hitler de stichter was van volkswagen en fanta 
+- ⚡ Fun fact: wist je dat hitler de oorzaak was van volkswagen en fanta 
 
 <!---
 FlipdeLigt/FlipdeLigt is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
