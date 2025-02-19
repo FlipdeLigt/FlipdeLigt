@@ -1,0 +1,145 @@
+# DIT IS HET GALGJE SPEL
+# GESCHREVEN DOOR [JOUW NAAM]
+# Doel: Het programma heeft een geheim woord, de gebruiker mag letter voor letter raden of die letter in het woord voorkomt.
+# Het spel is afgelopen als de gebruiker het juiste woord geraden heeft, of te veel fouten gemaakt heeft.
+
+import random
+
+# ##################
+# GLOBALE VARIABELEN
+# ##################
+
+woorden_lijst = ['appel', 'banaan', 'peer', 'mango']  # Lijst met mogelijke geheime woorden
+geheim_woord = list(random.choice(woorden_lijst))  # Kies een willekeurig geheim woord
+geraden_woord = ['_'] * len(geheim_woord)  # Leeg geraden woord (met streepjes)
+pogingen_over = 10  # Aantal foutieve pogingen
+geraden_letters = []  # Lijst van letters die de speler al geraden heeft
+
+# ##################
+# FUNCTIE DEFINITIES
+# ##################
+
+def welkomstWoord():
+    """Geeft een welkomstbericht en legt de spelregels uit."""
+    print("Welkom bij Galgje!")
+    print("Regels:")
+    print("1. Ik heb een woord in gedachten.")
+    print("2. Jij mag 10 keer een letter raden.")
+    print("3. Als je een letter goed raadt, wordt deze zichtbaar in het woord.")
+    print("4. Als je 10 fouten maakt, heb je verloren.")
+    print("Veel succes!")
+
+def teken_galg(pogingen_over):
+    """Tekent de galg op basis van het aantal resterende pogingen."""
+    galg = [
+        """
+         ------
+         |    |
+              |
+              |
+              |
+              |
+        """,
+        """
+         ------
+         |    |
+         O    |
+              |
+              |
+              |
+        """,
+        """
+         ------
+         |    |
+         O    |
+         |    |
+              |
+              |
+        """,
+        """
+         ------
+         |    |
+         O    |
+        /|    |
+              |
+              |
+        """,
+        """
+         ------
+         |    |
+         O    |
+        /|\\   |
+              |
+              |
+        """,
+        """
+         ------
+         |    |
+         O    |
+        /|\\   |
+        /     |
+              |
+        """,
+        """
+         ------
+         |    |
+         O    |
+        /|\\   |
+        / \\   |
+              |
+        """
+    ]
+    print(galg[10 - pogingen_over])
+
+def speel_galgje():
+    """De hoofdloop van het galgje-spel."""
+    global geheim_woord, geraden_woord, pogingen_over, geraden_letters
+
+    while pogingen_over > 0:
+        print(f"\nGeraden woord tot nu toe: {' '.join(geraden_woord)}")
+        print(f"Je hebt nog {pogingen_over} pogingen over.")
+        print(f"Geraden letters: {', '.join(geraden_letters)}")
+        teken_galg(pogingen_over)
+
+        gok_letter = input("Wil je een letter gokken? ").lower()
+
+        # Controleer of de invoer een letter is
+        if not gok_letter.isalpha() or len(gok_letter) != 1:
+            print("Voer alstublieft een geldige letter in!")
+            continue
+
+        # Check of de letter al geraden is
+        if gok_letter in geraden_letters:
+            print(f"Je hebt de letter '{gok_letter}' al geraden. Kies een andere letter.")
+            continue
+
+        # Voeg letter toe aan de lijst van geraden letters
+        geraden_letters.append(gok_letter)
+
+        # Controleer of de letter in het geheim woord zit
+        if gok_letter in geheim_woord:
+            print(f"Goed geraden! De letter '{gok_letter}' zit in het geheim woord.")
+            for i in range(len(geheim_woord)):
+                if geheim_woord[i] == gok_letter:
+                    geraden_woord[i] = gok_letter
+        else:
+            pogingen_over -= 1
+            print(f"Fout! De letter '{gok_letter}' zit niet in het geheim woord.")
+
+        # Controleer of het geheime woord is geraden
+        if "_" not in geraden_woord:
+            print(f"Gefeliciteerd, je hebt het geheim woord '{''.join(geheim_woord)}' geraden!")
+            break
+
+        # Controleer of het aantal pogingen op is
+        if pogingen_over == 0:
+            print(f"Helaas, je hebt verloren. Het geheim woord was '{''.join(geheim_woord)}'.")
+            break
+
+# ##################
+# HOOFDPROGRAMMA
+# ##################
+
+# Start het spel
+welkomstWoord()  # Start het spel met een welkomstbericht
+speel_galgje()   # Begin het galgje spel
