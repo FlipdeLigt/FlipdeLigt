@@ -1,4 +1,5 @@
 import random
+import os
 
 # ##################
 # GLOBALE VARIABELEN
@@ -10,6 +11,13 @@ geraden_letters = []  # Lijst van letters die de speler al geraden heeft
 # ##################
 # FUNCTIE DEFINITIES
 # ##################
+
+def clear_screen():
+    """Maakt het scherm leeg afhankelijk van het besturingssysteem."""
+    if os.name == 'nt':  # Windows
+        os.system('cls')
+    else:  # Unix-achtige systemen (Linux/Mac)
+        os.system('clear')
 
 def welkomstWoord():
     """Geeft een welkomstbericht en legt de spelregels uit."""
@@ -94,7 +102,8 @@ def speel_galgje():
     geraden_letters = []  # Reset de geraden letters voor een nieuw spel
 
     while pogingen_over > 0:
-        print(f"\nGeraden woord tot nu toe: {' '.join(geraden_woord)}")
+        clear_screen()  # Maak het scherm leeg voor elke nieuwe beurt
+        print(f"Geraden woord tot nu toe: {' '.join(geraden_woord)}")
         print(f"Je hebt nog {pogingen_over} pogingen over.")
         print(f"Geraden letters: {', '.join(geraden_letters)}")
         teken_galg(pogingen_over)
@@ -103,7 +112,7 @@ def speel_galgje():
 
         # Controleer of de invoer een letter is
         if not gok_letter.isalpha() or len(gok_letter) != 1:
-            print("hey vriend dit is natuurlijk geen letter he!")
+            print("Voer alstublieft een geldige letter in!")
             continue
 
         # Check of de letter al geraden is
@@ -151,6 +160,7 @@ def vraag_opnieuw_spelen():
 # ##################
 
 # Start het spel
+clear_screen()  # Maak het scherm leeg voordat het spel begint
 welkomstWoord()  # Start het spel met een welkomstbericht
 speel_galgje()   # Begin het galgje spel
 vraag_opnieuw_spelen()  # Vraag of de speler opnieuw wil spelen
