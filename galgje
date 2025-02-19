@@ -1,8 +1,3 @@
-# DIT IS HET GALGJE SPEL
-# GESCHREVEN DOOR [JOUW NAAM]
-# Doel: Het programma heeft een geheim woord, de gebruiker mag letter voor letter raden of die letter in het woord voorkomt.
-# Het spel is afgelopen als de gebruiker het juiste woord geraden heeft, of te veel fouten gemaakt heeft.
-
 import random
 
 # ##################
@@ -10,9 +5,6 @@ import random
 # ##################
 
 woorden_lijst = ['appel', 'banaan', 'peer', 'mango']  # Lijst met mogelijke geheime woorden
-geheim_woord = list(random.choice(woorden_lijst))  # Kies een willekeurig geheim woord
-geraden_woord = ['_'] * len(geheim_woord)  # Leeg geraden woord (met streepjes)
-pogingen_over = 10  # Aantal foutieve pogingen
 geraden_letters = []  # Lijst van letters die de speler al geraden heeft
 
 # ##################
@@ -93,7 +85,13 @@ def teken_galg(pogingen_over):
 
 def speel_galgje():
     """De hoofdloop van het galgje-spel."""
-    global geheim_woord, geraden_woord, pogingen_over, geraden_letters
+    global geraden_letters
+
+    # Kies een willekeurig geheim woord
+    geheim_woord = list(random.choice(woorden_lijst))
+    geraden_woord = ['_'] * len(geheim_woord)
+    pogingen_over = 10
+    geraden_letters = []  # Reset de geraden letters voor een nieuw spel
 
     while pogingen_over > 0:
         print(f"\nGeraden woord tot nu toe: {' '.join(geraden_woord)}")
@@ -136,6 +134,18 @@ def speel_galgje():
             print(f"Helaas, je hebt verloren. Het geheim woord was '{''.join(geheim_woord)}'.")
             break
 
+def vraag_opnieuw_spelen():
+    """Vraagt de speler of ze opnieuw willen spelen met een nieuw woord."""
+    while True:
+        opnieuw = input("\nWil je nog een keer spelen met een nieuw woord? (ja/nee): ").lower()
+        if opnieuw == 'ja':
+            speel_galgje()  # Start een nieuw spel
+        elif opnieuw == 'nee':
+            print("Bedankt voor het spelen! Tot de volgende keer!")
+            break
+        else:
+            print("Ongeldige invoer, voer 'ja' of 'nee' in.")
+
 # ##################
 # HOOFDPROGRAMMA
 # ##################
@@ -143,3 +153,4 @@ def speel_galgje():
 # Start het spel
 welkomstWoord()  # Start het spel met een welkomstbericht
 speel_galgje()   # Begin het galgje spel
+vraag_opnieuw_spelen()  # Vraag of de speler opnieuw wil spelen
