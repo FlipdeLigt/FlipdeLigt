@@ -103,7 +103,7 @@ def speel_galgje():
 
         # Controleer of de invoer een letter is
         if not gok_letter.isalpha() or len(gok_letter) != 1:
-            print("Voer alstublieft een geldige letter in!")
+            print("hey vriend dit is natuurlijk geen letter he!")
             continue
 
         # Check of de letter al geraden is
